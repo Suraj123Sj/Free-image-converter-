@@ -600,4 +600,250 @@ If you face any problems, try re-uploading or using another image format.
         <p>Image conversion helps in reducing file size, maintaining quality, and ensuring compatibility with different platforms. Whether you need to upload images to a website, share on social media, or store efficiently, our tool provides quick and high-quality conversions.</p>
        <h2>Online vs. Offline Image Converters: Which One is Better?</h2>
         <p>Online converters like ours require no installation, save storage space, and provide instant results. Unlike offline software, which may be complex and slow, our tool is accessible from any device with an internet connection.</p>
-     <h2>How to Convert Multiple Imag
+     <h2>How to Convert Multiple Images at Once? (Batch Conversion)
+</h2>
+        <p>To convert multiple images:
+
+1. Upload all images together.
+
+
+2. Select a common output format.
+
+
+3. Click “Convert” and download all files in a ZIP folder.
+Batch processing saves time when handling large numbers of images.
+</p>
+        <h2>Maintaining Image Quality During Conversion</h2>
+        <p>Image quality depends on format selection and compression settings. Our tool ensures minimal quality loss by using advanced algorithms to optimize image transformation.</p>
+
+       <h2>Ensuring Security & Privacy While Converting Images
+</h2>
+        <p>All uploaded files are encrypted and automatically deleted after processing, ensuring complete privacy and security. We do not store or share user data.</p>
+       <h2>How to Convert Images Without Losing Transparency?</h2>
+        <p>If your image has a transparent background (like PNG), choose an output format that supports transparency (PNG or WebP). Avoid formats like JPEG, which remove transparency.</p>
+
+        <h2>Troubleshooting: Why Won’t My Image Convert?</h2>
+        <p>Common issues include:
+
+Unsupported file formats.
+
+Exceeding size limits.
+
+Corrupt or damaged files.
+If you face any problems, try re-uploading or using another image format.
+</p>
+</section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p class="text-light">Welcome to "Free image converter" – Your Ultimate Image Converter!
+
+At Free image converter, we make image conversion simple, fast, and hassle-free. Whether you need to convert JPEG to PNG, WebP, BMP, or GIF, our tool ensures high-quality results in seconds.
+
+Why Choose Us?
+
+✔ Free & Fast: Convert images instantly.
+✔ No Software Required: Works directly in your browser.
+✔ Secure: Uploaded files are automatically deleted after processing.
+✔ Multiple Format Support: PNG, JPEG, WebP, GIF, BMP, and more.
+
+We are committed to providing a user-friendly experience with advanced AI-powered image processing.
+
+💡 Got suggestions? Contact us anytime!</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="faqs.html">FAQ</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="security.html">Security</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="#twitter">🐦</a>
+                    <a href="#facebook">📘</a>
+                    <a href="#instagram">📸</a>
+                    <a href="#linkedin">💼</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2023 Image Converter Pro. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced File Handling
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const previewSection = document.getElementById('previewSection');
+        const previewImage = document.getElementById('previewImage');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const progressBar = document.getElementById('progressBar');
+
+        const updatePreview = (file) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImage.src = e.target.result;
+                previewSection.style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+            
+            fileName.textContent = file.name;
+            fileSize.textContent = `${(file.size / 1024).toFixed(1)} KB`;
+        };
+
+        dropZone.addEventListener('click', () => fileInput.click());
+        
+        // Drag & Drop Handlers
+        ['dragover', 'dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        });
+
+        dropZone.addEventListener('dragover', () => {
+            dropZone.style.borderColor = 'var(--primary)';
+            dropZone.style.transform = 'scale(1.02)';
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.borderColor = '#e2e8f0';
+            dropZone.style.transform = 'scale(1)';
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            const files = e.dataTransfer.files;
+            if (files[0]) {
+                updatePreview(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files[0]) {
+                updatePreview(e.target.files[0]);
+            }
+        });
+
+        // Conversion Simulation
+        function convertImage() {
+            progressBar.style.display = 'block';
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 10;
+                document.getElementById('progress').style.width = `${progress}%`;
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        progressBar.style.display = 'none';
+                        document.getElementById('progress').style.width = '0%';
+                    }, 500);
+                }
+            }, 100);
+        }
+// Update conversion logic
+async function convertImage() {
+    const fileInput = document.getElementById('fileInput');
+    const formatSelect = document.getElementById('formatSelect');
+    const progressBar = document.getElementById('progressBar');
+    const downloadBtn = document.getElementById('downloadBtn');
+    
+    if (!fileInput.files.length) {
+        alert('Please select an image first!');
+        return;
+    }
+
+    // Show progress bar
+    progressBar.style.display = 'block';
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += 10;
+        document.getElementById('progress').style.width = `${progress}%`;
+        if (progress >= 100) clearInterval(interval);
+    }, 100);
+
+    try {
+        const file = fileInput.files[0];
+        const format = formatSelect.value;
+        
+        // Load image
+        const img = await new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = reject;
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Create canvas
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+
+        // Convert to selected format
+        const mimeTypes = {
+            jpg: 'image/jpeg',
+            png: 'image/png',
+            webp: 'image/webp',
+            bmp: 'image/bmp'
+        };
+
+        const blob = await new Promise(resolve => 
+            canvas.toBlob(resolve, mimeTypes[format])
+        );
+
+        // Create download link
+        const url = URL.createObjectURL(blob);
+        downloadBtn.style.display = 'block';
+        downloadBtn.onclick = () => {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `converted-image.${format}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        };
+
+    } catch (error) {
+        alert('Error converting image: ' + error.message);
+    } finally {
+        setTimeout(() => {
+            progressBar.style.display = 'none';
+            document.getElementById('progress').style.width = '0%';
+        }, 500);
+    }
+}
+
+// Update file input handler to hide download button when new file selected
+fileInput.addEventListener('change', (e) => {
+    if (e.target.files[0]) {
+        document.getElementById('downloadBtn').style.display = 'none';
+        handleFiles(e.target.files);
+    }
+});
+    </script>
+</body>
+</html>
